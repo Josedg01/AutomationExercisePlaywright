@@ -1,7 +1,7 @@
 const { test, expect } = require("@playwright/test");
 
-const { BasePage } = require("../Pages/BasePage.js");
-const { HomePage } = require("../Pages/HomePage.js");
+const { BasePage } = require("../pages/BasePage.js");
+const { HomePage } = require("../pages/HomePage.js");
 const { LoginPage } = require("../pages/LoginPage.js");
 const testData = JSON.parse(
   JSON.stringify(require("../testData/credentials.json")),
