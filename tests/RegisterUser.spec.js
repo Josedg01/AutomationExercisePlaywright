@@ -1,9 +1,9 @@
 const { test, expect } = require("@playwright/test");
 
-const { BasePage } = require("./pages/BasePage.js");
-const { HomePage } = require("./pages/HomePage.js");
-const { LoginPage } = require("./pages/LoginPage.js");
-const { SignupPage } = require("./pages/SignupPage.js");
+const { BasePage } = require("../pages/BasePage.js");
+const { HomePage } = require("../pages/HomePage.js");
+const { LoginPage } = require("../pages/LoginPage.js");
+const { SignupPage } = require("../pages/SignupPage.js");
 
 test("Register User", async ({ page }) => {
   const basePage = new BasePage(page);
