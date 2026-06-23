@@ -16,6 +16,7 @@ class LoginPage extends BasePage {
     this.loggedInLabel = "li:nth-child(10) a:nth-child(1)";
     this.deleteAccountBtn = "[href*='/delete_account']";
     this.accountDeletedTitle = ".title > b";
+    this.wrongloginAlert = "form[action*='/login'] p";
   }
 
   async register() {
@@ -33,6 +34,17 @@ class LoginPage extends BasePage {
     await this.containText(this.loggedInLabel, " Logged in as ");
     //await this.click(this.deleteAccountBtn);
     //await this.expectVisible(this.accountDeletedTitle);
+  }
+
+  async wrongLogin(email, password) {
+    await this.expectVisible(this.loginUserTitle);
+    await this.fill(this.loginEmail, email);
+    await this.fill(this.loginPassword, password);
+    await this.click(this.loginBtn);
+    await this.containText(
+      this.wrongloginAlert,
+      "Your email or password is incorrect!",
+    );
   }
 }
 

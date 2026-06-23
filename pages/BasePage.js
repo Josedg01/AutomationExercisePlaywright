@@ -49,5 +49,9 @@ class BasePage {
   async screenshot(options = {}) {
     await this.page.screenshot(options);
   }
+
+  async hover(selector, option) {
+    await this.page.locator(selector).hover(option);
+  }
 }
 module.exports = { BasePage };
