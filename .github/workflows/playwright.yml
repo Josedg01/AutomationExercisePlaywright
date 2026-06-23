@@ -4,6 +4,12 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  TESTMO_URL: ${{ secrets.TESTMO_URL }}
+  TESTMO_TOKEN: ${{ secrets.TESTMO_TOKEN }}
+
 jobs:
   test:
     timeout-minutes: 15
@@ -19,9 +25,21 @@ jobs:
         run: npx playwright install --with-deps
       - name: Run Playwright tests
         run: npx playwright test
-      - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+          if-no-files-found: ignore
+
+      - name: Submit results to Testmo
+        if: always()
+        run: |
+          npx testmo automation:run:submit \
+            --instance "$TESTMO_URL" \
+            --project-id 1 \
+            --name "Playwright tests - GitHub Actions" \
+            --source "Playwright" \
+            --results test-results/results.xml
