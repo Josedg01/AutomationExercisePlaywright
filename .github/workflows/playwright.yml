@@ -5,6 +5,10 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
+  schedule:
+    # Nightly run: 1:00 AM UTC every day
+    - cron: "0 2 * * *"
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -41,6 +45,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
+        id: playwright
         run: npx playwright test
         continue-on-error: true
 
@@ -85,6 +90,28 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: allure-report/
+
+      - name: Send email notification
+        if: always() && env.MAIL_USERNAME != '' && env.MAIL_PASSWORD != '' && env.MAIL_TO != ''
+        uses: dawidd6/action-send-mail@v6
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "Playwright Tests - ${{ steps.playwright.outcome }} - ${{ github.repository }}"
+          to: ${{ secrets.MAIL_TO }}
+          from: GitHub Actions <${{ secrets.MAIL_USERNAME }}>
+          html_body: |
+            <h2>Playwright Test Execution</h2>
+            <p><strong>Test status:</strong> ${{ steps.playwright.outcome }}</p>
+            <p><strong>Repository:</strong> ${{ github.repository }}</p>
+            <p><strong>Branch:</strong> ${{ github.ref_name }}</p>
+            <p><strong>Triggered by:</strong> ${{ github.actor }}</p>
+            <p><strong>Commit:</strong> ${{ github.sha }}</p>
+            <p><a href="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}">View GitHub Actions Run</a></p>
+            <p>The Allure report is published through GitHub Pages when this run is not a pull request.</p>
 
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
