@@ -71,16 +71,6 @@ jobs:
           retention-days: 30
           if-no-files-found: ignore
 
-      - name: Submit results to Testmo
-        if: always()
-        run: |
-          npx testmo automation:run:submit \
-            --instance "$TESTMO_URL" \
-            --project-id 1 \
-            --name "Playwright tests - GitHub Actions" \
-            --source "Playwright" \
-            --results test-results/results.xml
-
       - name: Setup GitHub Pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/configure-pages@v5
@@ -112,6 +102,35 @@ jobs:
             <p><strong>Commit:</strong> ${{ github.sha }}</p>
             <p><a href="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}">View GitHub Actions Run</a></p>
             <p>The Allure report is published through GitHub Pages when this run is not a pull request.</p>
+
+      - name: Create Testmo resources
+        if: always()
+        run: |
+          npx testmo automation:resources:add-link \
+            --name "GitHub Actions Run" \
+            --url "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --resources resources.json
+
+          npx testmo automation:resources:add-link \
+            --name "Allure Report - GitHub Pages" \
+            --url "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/" \
+            --resources resources.json
+
+          npx testmo automation:resources:add-link \
+            --name "Commit" \
+            --url "https://github.com/${{ github.repository }}/commit/${{ github.sha }}" \
+            --resources resources.json
+
+      - name: Submit results to Testmo
+        if: always()
+        run: |
+          npx testmo automation:run:submit \
+            --instance "$TESTMO_URL" \
+            --project-id 1 \
+            --name "Playwright tests - GitHub Actions" \
+            --source "Playwright" \
+            --resources resources.json \
+            --results test-results/results.xml
 
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
