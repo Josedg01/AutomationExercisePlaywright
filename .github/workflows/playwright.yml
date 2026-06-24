@@ -92,7 +92,7 @@ jobs:
           path: allure-report/
 
       - name: Send email notification
-        if: always() && env.MAIL_USERNAME != '' && env.MAIL_PASSWORD != '' && env.MAIL_TO != ''
+        if: always()
         uses: dawidd6/action-send-mail@v6
         with:
           server_address: smtp.gmail.com
