@@ -22,7 +22,7 @@ class ContactPage extends BasePage {
     await this.fill(this.emailInput, email);
     await this.fill(this.subjectInput, subject);
     await this.fill(this.messageInput, message);
-
+    await this.page.waitForTimeout(5000);
     this.page.once("dialog", async (dialog) => {
       await dialog.accept();
     });

@@ -43,7 +43,7 @@ class ProductsPage extends BasePage {
       .first();
 
     await productCard.hover();
-    // await this.waitForNetworkIdle();
+    await this.page.waitForTimeout(5000);
     await productCard
       .locator('.overlay-content a:has-text("Add to cart")')
       .click();
