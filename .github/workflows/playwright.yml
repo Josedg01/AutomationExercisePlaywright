@@ -46,7 +46,7 @@ jobs:
 
       - name: Run Playwright tests
         id: playwright
-        run: npx playwright test --workers=2 --reporter=line
+        run: npx playwright test --workers=2
         continue-on-error: true
 
       - name: Generate Allure Report
