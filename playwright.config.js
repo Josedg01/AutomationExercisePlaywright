@@ -31,28 +31,47 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: "chromium",
-    baseURL: "https://automationexercise.com",
     trace: "on-first-retry",
     video: "retain-on-failure",
     screenshot: "on",
-    headless: true,
+    headless: false,
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      testMatch: /.*\.ui\.spec\.js/,
+      use: {
+        ...devices["Desktop Chrome"],
+        baseURL: "https://automationexercise.com",
+      },
     },
 
     {
       name: "firefox",
-      use: { ...devices["Desktop Firefox"] },
+      testMatch: /.*\.ui\.spec\.js/,
+      use: {
+        ...devices["Desktop Firefox"],
+        baseURL: "https://automationexercise.com",
+      },
     },
 
     {
       name: "webkit",
-      use: { ...devices["Desktop Safari"] },
+      testMatch: /.*\.ui\.spec\.js/,
+      use: {
+        ...devices["Desktop Safari"],
+        baseURL: "https://automationexercise.com",
+      },
+    },
+
+    {
+      name: "api",
+      testMatch: /.*\.api\.spec\.js/,
+      use: {
+        baseURL: "https://petstore.swagger.io/v2",
+      },
     },
 
     /* Test against mobile viewports. */
