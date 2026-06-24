@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
   schedule:
     # Nightly run: 1:00 AM UTC every day
-    - cron: "0 2 * * *"
+    - cron: "0 1 * * *"
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -46,7 +46,7 @@ jobs:
 
       - name: Run Playwright tests
         id: playwright
-        run: npx playwright test
+        run: npx playwright test --workers=2 --reporter=line
         continue-on-error: true
 
       - name: Generate Allure Report

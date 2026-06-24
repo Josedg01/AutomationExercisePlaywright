@@ -5,9 +5,14 @@ const { HomePage } = require("../../pages/HomePage.js");
 const { LoginPage } = require("../../pages/LoginPage.js");
 const { CartPage } = require("../../pages/CartPage.js");
 const { ProductsPage } = require("../../pages/ProductsPage.js");
+const { setupAdHandling } = require("../../helpers/adsHelper.js");
 const testData = JSON.parse(
   JSON.stringify(require("../../testData/credentials.json")),
 );
+
+test.beforeEach(async ({ page }) => {
+  await setupAdHandling(page);
+});
 
 test("Add one product to cart", async ({ page }) => {
   const basePage = new BasePage(page);
@@ -24,5 +29,4 @@ test("Add one product to cart", async ({ page }) => {
   await productPage.addProductToCart(testData.product);
   const cartPage = new CartPage(page);
   await cartPage.verifyItemInCart(testData.product);
-  //await page.waitForTimeout(5000);
 });

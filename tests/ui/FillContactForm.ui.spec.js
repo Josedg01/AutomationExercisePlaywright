@@ -5,9 +5,14 @@ const { BasePage } = require("../../pages/BasePage.js");
 const { HomePage } = require("../../pages/HomePage.js");
 const { LoginPage } = require("../../pages/LoginPage.js");
 const { ContactPage } = require("../../pages/ContactPage.js");
+const { setupAdHandling } = require("../../helpers/adsHelper.js");
 const testData = JSON.parse(
   JSON.stringify(require("../../testData/credentials.json")),
 );
+
+test.beforeEach(async ({ page }) => {
+  await setupAdHandling(page);
+});
 
 test("Contact us form should be submitted successfully", async ({ page }) => {
   const basePage = new BasePage(page);
