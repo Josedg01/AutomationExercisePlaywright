@@ -71,7 +71,7 @@ export default defineConfig({
       name: "api",
       testMatch: /.*\.api\.spec\.js/,
       use: {
-        baseURL: "https://petstore.swagger.io/v2",
+        baseURL: "https://petstore.swagger.io/v2/",
       },
     },
 

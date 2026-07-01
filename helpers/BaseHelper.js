@@ -1,6 +1,6 @@
-const { expect } = require("allure-playwright");
+const { expect } = require("@playwright/test");
 
-class BasePage {
+class BaseHelper {
   constructor(page) {
     this.page = page;
   }
@@ -54,4 +54,5 @@ class BasePage {
     await this.page.locator(selector).hover(option);
   }
 }
-module.exports = { BasePage };
+
+module.exports = { BaseHelper };

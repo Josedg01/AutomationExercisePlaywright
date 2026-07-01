@@ -1,7 +1,7 @@
-const { BasePage } = require("./BasePage");
-const { expect } = require("allure-playwright");
+const { BaseHelper } = require("../helpers/BaseHelper");
+const { expect } = require("@playwright/test");
 
-class ProductsPage extends BasePage {
+class ProductsPage extends BaseHelper {
   constructor(page) {
     super(page);
     this.loginBtn = "a[href*='login']";

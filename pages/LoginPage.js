@@ -1,8 +1,8 @@
-const { BasePage } = require("./BasePage");
+const { BaseHelper } = require("../helpers/BaseHelper");
 
 const { randFullName, randEmail } = require("@ngneat/falso");
 
-class LoginPage extends BasePage {
+class LoginPage extends BaseHelper {
   constructor(page) {
     super(page);
     this.newUserTitle = ".signup-form > h2";

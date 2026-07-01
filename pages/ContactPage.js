@@ -1,7 +1,7 @@
 const { expect } = require("@playwright/test");
-const { BasePage } = require("./BasePage");
+const { BaseHelper } = require("../helpers/BaseHelper");
 
-class ContactPage extends BasePage {
+class ContactPage extends BaseHelper {
   constructor(page) {
     super(page);
     this.getInTouchTitle = ".contact-form .title";

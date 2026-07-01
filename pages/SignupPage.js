@@ -1,4 +1,4 @@
-const { BasePage } = require("./BasePage");
+const { BaseHelper } = require("../helpers/BaseHelper");
 const {
   randFirstName,
   randLastName,
@@ -21,7 +21,7 @@ const country = rand([
   "New Zealand",
   "Singapore",
 ]);
-class SignupPage extends BasePage {
+class SignupPage extends BaseHelper {
   constructor(page) {
     super(page);
     this.accountInfoTitle = ".login-form .title:first-child b";

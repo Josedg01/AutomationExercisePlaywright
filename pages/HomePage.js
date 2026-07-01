@@ -1,6 +1,6 @@
-const { BasePage } = require("./BasePage");
+const { BaseHelper } = require("../helpers/BaseHelper");
 
-class HomePage extends BasePage {
+class HomePage extends BaseHelper {
   constructor(page) {
     super(page);
     this.loginBtn = "a[href*='login']";

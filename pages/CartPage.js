@@ -1,6 +1,6 @@
-const { BasePage } = require("./BasePage");
+const { BaseHelper } = require("../helpers/BaseHelper");
 
-class CartPage extends BasePage {
+class CartPage extends BaseHelper {
   constructor(page) {
     super(page);
     this.checkoutBtn = ".check_out";
