@@ -1,16 +1,14 @@
-const { BaseHelper } = require("../helpers/BaseHelper");
+const { HeaderPage } = require("./HeaderPage");
 
-class CartPage extends BaseHelper {
+class CartPage extends HeaderPage {
   constructor(page) {
     super(page);
     this.checkoutBtn = ".check_out";
     this.cartInfoBox = "#cart_info";
-    //this.itemsIncart = "a[href*='/view_cart']";
-    this.itemInCart = ".cart_description a[href*='/product_details/1']";
   }
 
   async verifyItemInCart(product) {
-    const viewCart = this.page.locator("a[href*='/view_cart']").first();
+    const viewCart = this.page.locator(this.viewCart).first();
     await viewCart.click();
     await this.containText(this.itemInCart, product);
   }

@@ -32,12 +32,7 @@ Every suite and test case is prefixed with a stable ID so it can be referenced i
 - `test.describe("TS-00X - ...")` — Test Suite ID
 - `test("TC-00X - ...")` — Test Case ID
 
-## Tags
-
-Tests are tagged `@smoke` (core happy paths) or `@regression` (everything else) via Playwright's `tag` option, so they can be filtered independently of their titles:
-
-- `npm run test:smoke` runs only `@smoke` tests.
-- `npm run test:reg` runs only `@regression` tests.
+See [docs/TEST_CASES.md](docs/TEST_CASES.md) for the full test case documentation (title, description, preconditions, steps and expected results for every UI and API test).
 
 ## Project Installation
 
@@ -48,8 +43,6 @@ Tests are tagged `@smoke` (core happy paths) or `@regression` (everything else) 
 
 - `npm run test` — execute all test cases (UI + API).
 - `npm run test:ui` — open Playwright's **UI Test Runner** to debug tests interactively.
-- `npm run test:smoke` — execute only the tests tagged `@smoke`.
-- `npm run test:reg` — execute only the tests tagged `@regression`.
 - `npm run test:grep -- <pattern>` — execute only the tests whose title matches `<pattern>`.
 - `npm run report` — open the standard Playwright HTML report from the last run.
 - `npm run allure:report` — generate the Allure HTML report from `allure-results`.
@@ -57,6 +50,8 @@ Tests are tagged `@smoke` (core happy paths) or `@regression` (everything else) 
 - `npm run test:allure` — run the full pipeline: run tests → generate the Allure report → open it.
 - `npm run allure:clean` — clean the `.allure` cache folder Allure uses to store historical data.
 - `npm run ci:allure` — run tests and generate the Allure report without opening it (used in CI).
+
+Every `test*` script (`test`, `test:ui`, `test:grep`) clears `allure-results/` first via an npm `pretest*` hook. Allure never overwrites or dedupes raw result files — it just accumulates them — so without this the generated report would keep showing every past run mixed together instead of only the one you just executed.
 
 ## CI/CD
 

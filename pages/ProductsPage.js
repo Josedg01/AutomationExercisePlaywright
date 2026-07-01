@@ -1,12 +1,9 @@
-const { BaseHelper } = require("../helpers/BaseHelper");
+const { HeaderPage } = require("./HeaderPage");
 const { expect } = require("@playwright/test");
 
-class ProductsPage extends BaseHelper {
+class ProductsPage extends HeaderPage {
   constructor(page) {
     super(page);
-    this.loginBtn = "a[href*='login']";
-    this.viewCart = "a[href*='/view_cart']";
-    this.itemInCart = ".cart_description a[href*='/product_details/1']";
     this.productsTitle = ".features_items .title";
     this.searchInput = "#search_product";
     this.searchButton = "#submit_search";
