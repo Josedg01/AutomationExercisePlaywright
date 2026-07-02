@@ -72,11 +72,11 @@ jobs:
           if-no-files-found: ignore
 
       - name: Setup GitHub Pages
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: (github.event_name == 'push' || github.event_name == 'schedule') && github.ref == 'refs/heads/main'
         uses: actions/configure-pages@v5
 
       - name: Upload Allure Report to GitHub Pages
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: (github.event_name == 'push' || github.event_name == 'schedule') && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
         with:
           path: allure-report/
@@ -133,7 +133,7 @@ jobs:
             --results test-results/results.xml
 
   deploy:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: (github.event_name == 'push' || github.event_name == 'schedule') && github.ref == 'refs/heads/main'
     needs: test
     runs-on: ubuntu-latest
 

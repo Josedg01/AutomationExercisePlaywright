@@ -41,13 +41,13 @@ See [docs/TEST_CASES.md](docs/TEST_CASES.md) for the full test case documentatio
 
 ## Project Execution
 
+- `npm run test:allure` — run the full pipeline: run tests → generate the Allure report → open it.
 - `npm run test` — execute all test cases (UI + API).
 - `npm run test:ui` — open Playwright's **UI Test Runner** to debug tests interactively.
 - `npm run test:grep -- <pattern>` — execute only the tests whose title matches `<pattern>`.
 - `npm run report` — open the standard Playwright HTML report from the last run.
 - `npm run allure:report` — generate the Allure HTML report from `allure-results`.
 - `npm run allure:open` — open the Allure report generated in `allure-report`.
-- `npm run test:allure` — run the full pipeline: run tests → generate the Allure report → open it.
 - `npm run allure:clean` — clean the `.allure` cache folder Allure uses to store historical data.
 - `npm run ci:allure` — run tests and generate the Allure report without opening it (used in CI).
 
